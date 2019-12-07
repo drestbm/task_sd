@@ -11,8 +11,3 @@ class Client_serializer():
             "phone": str(_object.phone),
             "address": _object.address,
         }
-
-    # def create(data):
-
-
-    # def update(objects, data):

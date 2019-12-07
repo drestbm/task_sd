@@ -7,10 +7,5 @@ class Product_serializer():
             "id": _object.id,
             "name": _object.name,
             "description": _object.description,
-            "price": _object.price,
+            "price": round(float(_object.price),2),
         }
-
-    # def create(data):
-
-
-    # def update(objects, data):

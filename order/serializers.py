@@ -8,7 +8,7 @@ class Ordered_product_serilizer():
     def get(_object):
         return {
             "id":_object.id,
-            "price": _object.price,
+            "price": round(float(_object.price),2),
             "quantity": _object.quantity,
             "product": Product_serializer.get(_object.product)
         }
@@ -16,7 +16,7 @@ class Ordered_product_serilizer():
     def create(data, order):
         product = Product.objects.get(id = data["product"]["id"])
         quantity = data["quantity"]
-        price = product.price * quantity
+        price =  product.price * quantity
         return Ordered_product.objects.create(
             product = product,
             price = price,
@@ -33,13 +33,17 @@ class Order_serializer():
             "date_create": _object.date_create,
             "date_update": _object.date_update,
             "client": Client_serializer.get(_object.client),
-            "total_price": _object.total_price,
+            "total_price": round(float(_object.total_price),2),
             "ordered_products": ord_products_mas
         }
 
     def create(data):
         date_now = datetime.datetime.now()
-        _id = date_now.strftime("%Y%m%d") + str(len(Order.objects.filter(date_create = date_now)) + 1)
+        last_order = Order.objects.filter(date_create = date_now).order_by("-id")
+        if len(last_order) == 0:
+            _id = int(date_now.strftime("%Y%m%d")  + str(1))
+        else:
+             _id = last_order[0].id + 1
         client = Client.objects.get(id = data.pop("client")["id"])
         ord_products = data.pop("ordered_products")
         order = Order.objects.create(
