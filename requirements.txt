@@ -4,7 +4,7 @@ attrs==19.3.0
 Babel==2.7.0
 colorama==0.4.3
 coverage==4.5.4
-Django==3.0
+Django==3.0.12
 django-phonenumber-field==4.0.0
 Faker==0.9.1
 importlib-metadata==1.2.0
